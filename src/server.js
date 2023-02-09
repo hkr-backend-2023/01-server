@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 	// Three methods of using strings in JavaScript: '', "", ``
 	res.send(`Hello! This is the ${visitCount} time you have visited.`)
 })
-// 
+
 
 
 app.listen(3000, () => {
