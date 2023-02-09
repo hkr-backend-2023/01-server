@@ -13,8 +13,7 @@ const allProductsRoute = (req, res) => {
 
 // URL in app.get must be: /fruits/:index
 const specificProductRoute = (req, res) => {
-	// We must validate the input
-	// The user/frontend can't be trusted!
+	// We must validate the input, because the user/frontend can't be trusted!
 	const index = Number(req.params.index)
 	console.log('GET request to /fruits/:index, index=' + index)
 	
@@ -22,15 +21,23 @@ const specificProductRoute = (req, res) => {
 	if( isNaN(index) ) {
 		console.log('- index is not a number at all')
 		// Tell the client that this was a BAD REQUEST
-		res.sendStatus(400)
+		res.sendStatus(400)  // bad request
 		return
 	}
-	// Task: check if index is within or outside the array
-	// else if( ??? )
-
-	const fruit = fruitData[index]
-	console.log('- we found this fruit: ', fruit)
-	res.send(fruit)
+	else if( index < 0 || index >= fruitData.length ) {
+		// Task: check if index is within or outside the array
+		// Array is numbered from 0 to length-1
+		console.log('- index is outside the array')
+		res.sendStatus(404)  // no fruit found
+		return
+	}
+	else {
+		// All is ok
+		const fruit = fruitData[index]
+		console.log('- we found this fruit: ', fruit)
+		res.send(fruit)
+		return
+	}
 }
 
 /*
